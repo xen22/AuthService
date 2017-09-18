@@ -1,0 +1,14 @@
+{
+    "version": "0.1.0",
+    "command": "/opt/dotnet/1.0.4/dotnet",
+    "isShellCommand": true,
+    "args": [],
+    "tasks": [{
+        "taskName": "build",
+        "args": [
+            "${workspaceRoot}/src/AuthService/AuthService.csproj"
+        ],
+        "isBuildCommand": true,
+        "problemMatcher": "$msCompile"
+    }]
+}
