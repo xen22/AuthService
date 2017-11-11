@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <Import Project="../../../Infrastructure/project_targets/netcoreapp1.1.targets" />
+    <Import Project="../../../Infrastructure/project_targets/netcoreapp2.targets" />
 
     <ItemGroup>
         <ProjectReference Include="../../../Common/src/AD.Common/AD.Common.csproj" />
@@ -8,12 +8,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="1.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.2" />
+        <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="1.1.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.2" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="1.1.2" />
     </ItemGroup>
 
     <!-- UserSecretsId is needed for the secret manager -->
@@ -22,8 +18,8 @@
     </PropertyGroup>
 
   <ItemGroup>
-      <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
-      <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.1" />    
+      <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+      <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />    
   </ItemGroup>
 
 </Project>
