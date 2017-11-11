@@ -97,7 +97,7 @@ namespace AD.AuthService
             });
 
             app
-                .UseIdentity()
+                .UseAuthentication()
                 .UseIdentityServer(); // Note: UseIdentityServer() must come after UseIdentity()
         }
     }
