@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using AD.AuthService.IdentityServer4;
+using AD.IdentityModels;
+using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using IdentityServer4.Services;
-using System.IO;
-
-using AD.AuthService.IdentityServer4;
-using AD.IdentityModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography.X509Certificates;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace AD.AuthService
 {
@@ -34,7 +33,7 @@ namespace AD.AuthService
             var settingsFile = envName == "" ? "appsettings.json" : $"appsettings.{envName}.json";
             var builder = new ConfigurationBuilder()
                 //.SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(settingsFile, optional: true, reloadOnChange: true)
+                .AddJsonFile(settingsFile, optional : true, reloadOnChange : true)
                 .AddEnvironmentVariables()
                 .AddUserSecrets<Startup>();
 
@@ -59,7 +58,7 @@ namespace AD.AuthService
         {
             // ASP.NET Identity services
             services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseMySql(BuildConnectionString()));
+                options.UseMySql(BuildConnectionString()));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -71,7 +70,7 @@ namespace AD.AuthService
 
             // configure IdentityServer4 with in-memory stores, keys, clients and resources
             services.AddIdentityServer()
-                .AddSigningCredential(new X509Certificate2(Configuration.GetSection("Tokens")["SigningCertificateFile"]))
+                .AddSigningCredential(new X509Certificate2(Configuration.GetSection("Tokens") ["SigningCertificateFile"]))
                 //.AddTemporarySigningCredential()
                 .AddAspNetIdentity<ApplicationUser>()
                 .AddInMemoryApiResources(_identityServerConfig.GetApiResources())
@@ -87,13 +86,18 @@ namespace AD.AuthService
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
 
             app.UseCors(cfg =>
             {
                 cfg.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .AllowCredentials();
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
             });
 
             app
